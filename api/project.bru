@@ -1,0 +1,27 @@
+meta {
+  name: project
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:5000/api/projects
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRiYjFlNzY0YTliNGQwMDMxZjExY2QiLCJpYXQiOjE3MzMwMTY0NDAsImV4cCI6MTczMzAyMDA0MH0.Bxt74OFXCtZS-6zt4KYyrp5nL_hFJy4Mqpp6xY-cehA
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "name": "Proyecto de Prueba 4",
+      "members": [],
+      "description": "Descripción del proyecto",
+      "icon": "✨",
+      "owner": "674bb1e764a9b4d0031f11cd"
+  }
+  
+}

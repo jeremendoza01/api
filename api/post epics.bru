@@ -1,0 +1,26 @@
+meta {
+  name: post epics
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:5000/api/epics
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRiYjFlNzY0YTliNGQwMDMxZjExY2QiLCJpYXQiOjE3MzMwMTYwOTIsImV4cCI6MTczMzAxOTY5Mn0.AA2KcsGbxFOsqnuELOIGTKpjCsioUS5bGP-4tt6w9fg
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "project": "674bb54bdd94acbf3cba83b3",
+      "name": "Épica de prueba",
+      "description": "Descripción de la épica",
+      "icon": "⚡"
+  }
+  
+}

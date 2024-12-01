@@ -1,0 +1,16 @@
+meta {
+  name: get task
+  type: http
+  seq: 12
+}
+
+get {
+  url: http://localhost:5000/api/tasks
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRiYjFlNzY0YTliNGQwMDMxZjExY2QiLCJpYXQiOjE3MzMwODYzODksImV4cCI6MTczMzA4OTk4OX0.LUATVLC_WhXpVeJband1v7c5VSRHwVDbKjvt7_0VwPk
+}

@@ -1,0 +1,26 @@
+meta {
+  name: post task
+  type: http
+  seq: 11
+}
+
+post {
+  url: http://localhost:5000/api/tasks
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRiYjFlNzY0YTliNGQwMDMxZjExY2QiLCJpYXQiOjE3MzMwODYzODksImV4cCI6MTczMzA4OTk4OX0.LUATVLC_WhXpVeJband1v7c5VSRHwVDbKjvt7_0VwPk
+}
+
+body:json {
+  {
+    "name": "Tarea de ejemplo 3",
+    "description": "jaja",
+    "story": "674ccb2af2ea7b3d842f00c8",
+    "due": "2024-12-10T00:00:00Z"
+  }
+  
+}
