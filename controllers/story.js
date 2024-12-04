@@ -2,6 +2,9 @@ const Story = require('../models/Story');
 const Epic = require('../models/Epic'); 
 const Sprint = require('../models/Sprint');
 const User = require('../models/User');
+const Task = require('../models/task')
+const mongoose = require('mongoose');
+
 
 // Crear una nueva historia
 const addStory = async (req, res) => {
@@ -46,7 +49,7 @@ const getStories = async (req, res) => {
             .populate('sprint', 'name')
             .populate('owner', 'username email')
             .populate('assignedTo', 'username email');
-        res.status(200).json({ data: stories });
+            res.status(200).json({ data: stories });
     } catch (error) {
         console.error("Error al obtener las historias:", error);
         res.status(500).json({ message: "Error interno del servidor" });
@@ -115,10 +118,30 @@ const deleteStory = async (req, res) => {
     }
 };
 
+// Obtener tareas de una historia
+const getTasksByStory = async (req, res) => {
+    try {
+        const { id } = req.params; // Cambiar de storyId a id
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'ID de historia inválido.' });
+        }
+
+        const tasks = await Task.find({ story: id });
+        res.status(200).json({ data: tasks });
+    } catch (error) {
+        console.error('Error al obtener las tareas:', error.message);
+        res.status(500).json({ message: 'Error al obtener las tareas.' });
+    }
+};
+
+
+
+
 module.exports = {
     addStory,
     getStories,
     getStoryById,
     updateStory,
     deleteStory,
+    getTasksByStory
 };

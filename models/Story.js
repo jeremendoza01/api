@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const epic = require('./Epic');
-const sprint = require('./Sprint');
-const user = require('./User');
+
 const schema = mongoose.Schema;
+const sprint = require('../models/Sprint')
 
 const storySchema = new schema({
     name: {
@@ -15,22 +14,22 @@ const storySchema = new schema({
     },
     epic: {
         type: schema.Types.ObjectId,
-        ref: epic,
+        ref: 'Epic', // Nombre del modelo como string
         required: true
     },
     sprint: {
         type: schema.Types.ObjectId,
-        ref: sprint,
+        sprint: { type: mongoose.Schema.Types.ObjectId, ref: 'Sprint' }, // Nombre del modelo como string
         required: false
     },
     owner: {
         type: schema.Types.ObjectId,
-        ref: user,
+        ref: 'User', // Nombre del modelo como string
         required: false
     },
     assignedTo: [{
         type: schema.Types.ObjectId,
-        ref: user,
+        ref: 'User', // Nombre del modelo como string
         required: false
     }],
     points: {
@@ -67,6 +66,6 @@ const storySchema = new schema({
         type: String,
         required: false
     }
-})
+});
 
-module.exports = mongoose.model('Story', storySchema)
+module.exports = mongoose.model('Story', storySchema);

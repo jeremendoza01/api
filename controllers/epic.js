@@ -1,6 +1,7 @@
 const Epic = require('../models/Epic');
 const mongoose = require('mongoose');
 const Project = require('../models/Project');
+const Story = require('../models/Story')
 
 // Obtener todas las épicas de un proyecto
 const getEpicsByProject = async (req, res) => {
@@ -12,7 +13,7 @@ const getEpicsByProject = async (req, res) => {
         }
 
         const epics = await Epic.find({ project: id }).populate('project');
-        res.status(200).json(epics);
+        res.status(200).json({ data: epics });
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener las épicas.', error: error.message });
     }
@@ -33,7 +34,7 @@ const getEpic = async (req, res) => {
             return res.status(404).json({ message: 'Épica no encontrada.' });
         }
 
-        res.status(200).json(epic);
+        res.status(200).json({ data: epic });
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener la épica.', error: error.message });
     }
@@ -107,10 +108,33 @@ const deleteEpic = async (req, res) => {
     }
 };
 
+// Obtener historias de una épica
+const getStoriesByEpic = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Verificar si el ID de la épica es válido
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'ID de épica no válido.' });
+        }
+
+        // Buscar historias asociadas a la épica
+        const stories = await Story.find({ epic: id })
+            .populate('epic', 'name') // Si necesitas los datos de la épica
+            .populate('assignedTo', 'username email') // Si necesitas los datos de los usuarios asignados
+
+        res.status(200).json({ data: stories });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener las historias de la épica.', error: error.message });
+    }
+};
+
 module.exports = {
     getEpicsByProject,
     getEpic,
     addEpic,
     editEpic,
-    deleteEpic
+    deleteEpic,
+    getStoriesByEpic
 };

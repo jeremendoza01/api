@@ -1,0 +1,27 @@
+meta {
+  name: post sprint
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://localhost:5000/api/sprints
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRkZTljMzllNmVlNGM1MTIwOGJiNTYiLCJpYXQiOjE3MzMxNTk1NTIsImV4cCI6MTczMzE2MzE1Mn0.Fg-q5YqrXz4jgZmVcZXuCO5EfnNGN4gQYKMZ7b35IM0
+}
+
+body:json {
+  {
+    "name": "Sprint Inicial",
+    "description": "Este es el primer sprint del proyecto.",
+    "start": "2024-12-01T00:00:00.000Z",
+    "finish": "2024-12-15T00:00:00.000Z",
+    "project": "674de9e49e6ee4c51208bb5a"
+  }
+  
+}

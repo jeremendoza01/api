@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const project = require('./Project');
 const schema = mongoose.Schema;
 
 const epicSchema = new schema({
     project: {
         type: schema.Types.ObjectId,
-        ref: project,
+        ref: 'Project', // Nombre del modelo como string
         required: true
     },
     name: {
@@ -22,4 +21,4 @@ const epicSchema = new schema({
     },
 });
 
-module.exports = mongoose.model('epic', epicSchema)
+module.exports = mongoose.model('Epic', epicSchema); // Cambié 'epic' por 'Epic' para mantener consistencia

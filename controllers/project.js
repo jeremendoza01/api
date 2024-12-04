@@ -6,7 +6,7 @@ const controllerProject = {
     async getProjects(req, res) {
         try {
             const projects = await Project.find().populate('owner members', 'name email');
-            res.status(200).json(projects);
+            res.status(200).json({ data: projects });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Error al obtener los proyectos.' });
@@ -27,7 +27,9 @@ const controllerProject = {
                 return res.status(404).json({ message: 'Proyecto no encontrado.' });
             }
 
-            res.status(200).json(project);
+            res.status(200).json({ data: project });
+
+
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Error al obtener el proyecto.' });
@@ -53,7 +55,8 @@ const controllerProject = {
             const savedProject = await newProject.save();
             // console.log("Proyecto guardado:", savedProject);  // Verifica que el proyecto se guarda correctamente
             
-            res.status(201).json(savedProject);
+            res.status(200).json({ data: project });
+
         } catch (error) {
             console.error("Error al guardar el proyecto:", error);  // Detalle del error
             res.status(500).json({ message: 'Error al crear el proyecto.' });

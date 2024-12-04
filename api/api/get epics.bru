@@ -1,0 +1,16 @@
+meta {
+  name: get epics
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:5000/api/epics/project/674de9e49e6ee4c51208bb5a
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRkZTljMzllNmVlNGM1MTIwOGJiNTYiLCJpYXQiOjE3MzMxNTkzNjcsImV4cCI6MTczMzE2Mjk2N30.CrCcMPqsg3wh2vCf3soih-yhNz3Bq5jCfq3S4Ehc7jQ
+  Content-Type: application/json
+}

@@ -37,10 +37,7 @@ const addTask = async (req, res) => {
 const getTasks = async (req, res) => {
     try {
         const tasks = await Task.find().populate('story', 'name');
-        res.status(200).json({
-            message: 'Tareas obtenidas exitosamente',
-            tasks,
-        });
+        res.status(200).json({ data: tasks });
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -59,10 +56,7 @@ const getTaskById = async (req, res) => {
             return res.status(404).json({ message: 'Tarea no encontrada.' });
         }
 
-        res.status(200).json({
-            message: 'Tarea obtenida exitosamente',
-            task,
-        });
+        res.status(200).json({ data: task });
     } catch (error) {
         console.error(error);
         res.status(500).json({

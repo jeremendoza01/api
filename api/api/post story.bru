@@ -1,0 +1,32 @@
+meta {
+  name: post story
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:5000/api/stories
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRkZTljMzllNmVlNGM1MTIwOGJiNTYiLCJpYXQiOjE3MzMxNTk2NTgsImV4cCI6MTczMzE2MzI1OH0.uocox6e0ODYpvFCugUZmeO4Uai4WblJAOJ6iD3bz7Yw
+}
+
+body:json {
+  {
+      "name": "Nueva historia 2",
+      "description": "Descripción de la historia",
+      "epic": "674dea1a9e6ee4c51208bb65", 
+      "sprint": "674deacb9e6ee4c51208bb7f", 
+      "owner": "6748e83e58269cee2e8f803b", 
+      "assignedTo": ["674bb1e764a9b4d0031f11cd"],
+      "points": 3,
+      "due": "2024-12-31T23:59:59.999Z",
+      "status": "todo",
+      "icon": "🦁"
+  }
+  
+}

@@ -1,0 +1,16 @@
+meta {
+  name: get sprint
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:5000/api/sprints
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRiYjFlNzY0YTliNGQwMDMxZjExY2QiLCJpYXQiOjE3MzMwODY2MDEsImV4cCI6MTczMzA5MDIwMX0.7GuPO2FgWz6gbWptJYRLWGB95N568SvITs9eXetMTqg
+}
