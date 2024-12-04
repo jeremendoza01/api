@@ -9,7 +9,5 @@ router.post('/register', register);
 //login
 router.post('/login', login);
 
-// Rutas protegidas
-// router.get('/profile', authMiddleware, getProfile);
 
 module.exports = router;

@@ -8,6 +8,7 @@ const epic = require('./routes/epic');
 const storyRoutes = require('./routes/story');
 const sprintRoutes = require('./routes/sprint');
 const taskRoutes = require('./routes/task')
+const userRoutes = require('./routes/user');
 dotenv.config();
 
 const connectDB = require('./db')
@@ -38,7 +39,7 @@ app.use('/api/epics', epic); // Rutas de épicas
 app.use('/api/stories', storyRoutes); // Ruta para historias
 app.use('/api/sprints', sprintRoutes);
 app.use('/api', taskRoutes)
-
+app.use('/api/users', userRoutes);
 
 
 console.log("Servidor iniciado correctamente.");
