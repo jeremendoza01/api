@@ -39,27 +39,35 @@ const controllerProject = {
     // Agregar un proyecto
     async addProject(req, res) {
         try {
-            // console.log("Entrando a addProject...");
             const { name, members, description, icon, owner } = req.body;
     
-            if (!name || !owner) {
-                return res.status(400).json({ message: 'El nombre y el propietario son obligatorios.' });
+            // Validar campos requeridos
+            if (!mongoose.Types.ObjectId.isValid(owner)) {
+                return res.status(400).json({ error: 'El ID del owner no es válido.' });
             }
     
-            if (members && !members.every(id => mongoose.Types.ObjectId.isValid(id))) {
-                return res.status(400).json({ message: 'Uno o más IDs de miembros no son válidos.' });
+            if (!Array.isArray(members) || members.length < 1) {
+                return res.status(400).json({ error: 'Debe haber al menos un miembro en el proyecto.' });
             }
     
-            const newProject = new Project({ name, members, description, icon, owner });
-            // console.log("proyecto creado:", newProject);
-            const savedProject = await newProject.save();
-            // console.log("Proyecto guardado:", savedProject);  // Verifica que el proyecto se guarda correctamente
-            
-            res.status(200).json({ data: project });
-
+            const invalidMembers = members.filter(member => !mongoose.Types.ObjectId.isValid(member));
+            if (invalidMembers.length > 0) {
+                return res.status(400).json({ error: `Los siguientes IDs de miembros no son válidos: ${invalidMembers.join(', ')}` });
+            }
+    
+            const project = new Project({
+                name,
+                members,
+                description,
+                icon,
+                owner,
+            });
+    
+            await project.save();
+            res.status(201).json(project);
         } catch (error) {
-            console.error("Error al guardar el proyecto:", error);  // Detalle del error
-            res.status(500).json({ message: 'Error al crear el proyecto.' });
+            console.error(error);
+            res.status(500).json({ error: 'Error al guardar el proyecto.' });
         }
     },
 

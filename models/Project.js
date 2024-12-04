@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
-const schema = mongoose.Schema;
+const { Schema, model } = mongoose;
+const User = require('./User'); // Importa el modelo de usuario
 
-const projectSchema = new schema({
+const projectSchema = new Schema({
     name: {
         type: String,
         required: true
     },
     members: [{
-        type: schema.Types.ObjectId,
-        ref: 'User',
-        required: false
+        type: Schema.Types.ObjectId,
+        ref: User,
+        required: true
     }],
     description: {
         type: String,
@@ -20,10 +21,9 @@ const projectSchema = new schema({
         required: false
     },
     owner: {
-        type: schema.Types.ObjectId,
-        ref: 'User',
+        type: Schema.Types.ObjectId,
+        ref: User,
         required: true
     }
 });
-
 module.exports = mongoose.models.Project || mongoose.model('Project', projectSchema);

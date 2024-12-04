@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema;
-const sprint = require('../models/Sprint')
 
 const storySchema = new schema({
     name: {
@@ -16,11 +15,6 @@ const storySchema = new schema({
         type: schema.Types.ObjectId,
         ref: 'Epic', // Nombre del modelo como string
         required: true
-    },
-    sprint: {
-        type: schema.Types.ObjectId,
-        sprint: { type: mongoose.Schema.Types.ObjectId, ref: 'Sprint' }, // Nombre del modelo como string
-        required: false
     },
     owner: {
         type: schema.Types.ObjectId,

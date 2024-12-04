@@ -6,7 +6,6 @@ const auth = require('./routes/auth');
 const projectRoutes = require('./routes/project');
 const epic = require('./routes/epic');
 const storyRoutes = require('./routes/story');
-const sprintRoutes = require('./routes/sprint');
 const taskRoutes = require('./routes/task')
 const userRoutes = require('./routes/user');
 dotenv.config();
@@ -37,7 +36,6 @@ app.use('/api/register', auth)
 app.use('/api/projects', projectRoutes); // Ruta para proyectos
 app.use('/api/epics', epic); // Rutas de épicas
 app.use('/api/stories', storyRoutes); // Ruta para historias
-app.use('/api/sprints', sprintRoutes);
 app.use('/api', taskRoutes)
 app.use('/api/users', userRoutes);
 

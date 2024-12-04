@@ -1,6 +1,5 @@
 const Story = require('../models/Story'); 
 const Epic = require('../models/Epic'); 
-const Sprint = require('../models/Sprint');
 const User = require('../models/User');
 const Task = require('../models/task')
 const mongoose = require('mongoose');
@@ -9,7 +8,7 @@ const mongoose = require('mongoose');
 // Crear una nueva historia
 const addStory = async (req, res) => {
     try {
-        const { name, description, epic, sprint, owner, assignedTo, points, due, started, finished, status, icon } = req.body;
+        const { name, description, epic, owner, assignedTo, points, due, started, finished, status, icon } = req.body;
 
         // Verificar si la épica asociada existe
         const existingEpic = await Epic.findById(epic);
@@ -22,7 +21,6 @@ const addStory = async (req, res) => {
             name,
             description,
             epic,
-            sprint,
             owner,
             assignedTo,
             points,
@@ -46,7 +44,6 @@ const getStories = async (req, res) => {
     try {
         const stories = await Story.find()
             .populate('epic', 'name')
-            .populate('sprint', 'name')
             .populate('owner', 'username email')
             .populate('assignedTo', 'username email');
             res.status(200).json({ data: stories });
@@ -62,7 +59,6 @@ const getStoryById = async (req, res) => {
         const { id } = req.params;
         const story = await Story.findById(id)
             .populate('epic', 'name')
-            .populate('sprint', 'name')
             .populate('owner', 'username email')
             .populate('assignedTo', 'username email');
 
@@ -85,7 +81,6 @@ const updateStory = async (req, res) => {
 
         const updatedStory = await Story.findByIdAndUpdate(id, updates, { new: true })
             .populate('epic', 'name')
-            .populate('sprint', 'name')
             .populate('owner', 'username email')
             .populate('assignedTo', 'username email');
 
