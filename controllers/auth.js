@@ -51,7 +51,7 @@ const register = async (req, res) => {
     }
 };
 
-// Función de login
+// login
 const login = async (req, res) => {
     const { username, password } = req.body;
 
@@ -60,50 +60,48 @@ const login = async (req, res) => {
     }
 
     try {
-        // Buscar el usuario en la base de datos
+        // console.log('Datos recibidos:', req.body);
+
         const user = await User.findOne({ username });
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(401).json({ message: 'Usuario no encontrado' });
         }
 
-        // Verificar la contraseña
         const isMatch = await bcrypt.compare(password, user.password);
+        console.log('Contraseña válida:', isMatch);
+
         if (!isMatch) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
 
-        // Generar un token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        // Responder con el token y los datos del usuario
-        res.status(200).json({
+        return res.status(200).json({ 
             message: 'Inicio de sesión exitoso',
             token,
-            user: {
-                username: user.username,
-                email: user.email,
-            }
+            user: { username: user.username, email: user.email },
         });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Error al iniciar sesión', error: err.message });
+        console.error('Error en login:', err);
+        res.status(500).json({ message: 'Error del servidor', error: err.message });
     }
 };
 
+
+
+
 const checkToken = async (req, res, next) => {
-    // Obtener el token del header de autorización
     const authHeader = req.headers.authorization;
-    
+
     // Verificar si existe el header de autorización
     if (!authHeader) {
-        return res.status(401).json({ 
-            isValid: false, 
-            message: 'No se proporcionó token de autorización' 
+        return res.status(401).json({
+            isValid: false,
+            message: 'No se proporcionó token de autorización',
         });
     }
 
-    // Extraer el token (eliminando el prefijo 'Bearer ')
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(' ')[1]; // Extraer el token (eliminando el prefijo 'Bearer ')
 
     try {
         // Verificar el token
@@ -112,35 +110,33 @@ const checkToken = async (req, res, next) => {
         // Buscar el usuario en la base de datos
         const user = await User.findById(decoded.userId).select('-password');
 
-        // Si no se encuentra el usuario
         if (!user) {
-            return res.status(401).json({ 
-                isValid: false, 
-                message: 'Token inválido' 
+            return res.status(401).json({
+                isValid: false,
+                message: 'Usuario no encontrado con este token',
             });
         }
 
         // Token válido y usuario encontrado, agregar el usuario al request
         req.user = user;
 
-        // Continuar con el siguiente middleware o controlador
-        next();
-
+        next(); // Continuar con el siguiente middleware o controlador
     } catch (error) {
         // Manejar diferentes tipos de errores de token
         if (error.name === 'TokenExpiredError') {
-            return res.status(401).json({ 
-                isValid: false, 
-                message: 'Token expirado' 
+            return res.status(401).json({
+                isValid: false,
+                message: 'Token expirado',
             });
         }
 
-        return res.status(401).json({ 
-            isValid: false, 
-            message: 'Token inválido' 
+        return res.status(401).json({
+            isValid: false,
+            message: 'Token inválido',
         });
     }
 };
+
 
 
 module.exports = { login, register, checkToken };
