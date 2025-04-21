@@ -10,7 +10,7 @@ const addStory = async (req, res) => {
     try {
         const { name, description, epic, owner, assignedTo, points, due, started, finished, status, icon } = req.body;
 
-        // Verificar si la épica asociada existe
+        // Verificar si la épica existe
         const existingEpic = await Epic.findById(epic);
         if (!existingEpic) {
             return res.status(404).json({ message: "Épica no encontrada" });
@@ -116,7 +116,7 @@ const deleteStory = async (req, res) => {
 // Obtener tareas de una historia
 const getTasksByStory = async (req, res) => {
     try {
-        const { id } = req.params; // Cambiar de storyId a id
+        const { id } = req.params;
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'ID de historia inválido.' });
         }

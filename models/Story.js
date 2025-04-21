@@ -13,17 +13,17 @@ const storySchema = new schema({
     },
     epic: {
         type: schema.Types.ObjectId,
-        ref: 'Epic', // Nombre del modelo como string
+        ref: 'Epic',
         required: true
     },
     owner: {
         type: schema.Types.ObjectId,
-        ref: 'User', // Nombre del modelo como string
+        ref: 'User', 
         required: false
     },
     assignedTo: [{
         type: schema.Types.ObjectId,
-        ref: 'User', // Nombre del modelo como string
+        ref: 'User', 
         required: false
     }],
     points: {

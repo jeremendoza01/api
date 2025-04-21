@@ -41,7 +41,6 @@ const controllerProject = {
         try {
             const { name, members, description, icon, owner } = req.body;
     
-            // Validar campos requeridos
             if (!mongoose.Types.ObjectId.isValid(owner)) {
                 return res.status(400).json({ error: 'El ID del owner no es válido.' });
             }

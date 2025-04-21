@@ -4,7 +4,7 @@ const schema = mongoose.Schema;
 const epicSchema = new schema({
     project: {
         type: schema.Types.ObjectId,
-        ref: 'Project', // Nombre del modelo como string
+        ref: 'Project',
         required: true
     },
     name: {
@@ -21,4 +21,4 @@ const epicSchema = new schema({
     },
 });
 
-module.exports = mongoose.model('Epic', epicSchema); // Cambié 'epic' por 'Epic' para mantener consistencia
+module.exports = mongoose.model('Epic', epicSchema); 

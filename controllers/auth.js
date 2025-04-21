@@ -36,7 +36,7 @@ const register = async (req, res) => {
         // Generar un token JWT
         const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        // Responder con el token y los datos del usuario
+        // Responde con el token y los datos del usuario
         res.status(201).json({
             message: 'Registro exitoso',
             token,
@@ -116,8 +116,6 @@ const checkToken = async (req, res, next) => {
                 message: 'Usuario no encontrado con este token',
             });
         }
-
-        // Token válido y usuario encontrado, agregar el usuario al request
         req.user = user;
 
         next(); // Continuar con el siguiente middleware o controlador

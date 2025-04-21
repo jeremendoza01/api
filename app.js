@@ -24,6 +24,7 @@ app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:5173', // Permitir solicitudes desde el front
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization', 'auth']
 }));
 
