@@ -24,8 +24,6 @@ const getUserById = async (req, res) => {
     }
 };
 
-
-
 // Actualizar un usuario por ID
 const updateUser = async (req, res) => {
     const { id } = req.params;

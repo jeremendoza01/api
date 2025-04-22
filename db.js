@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// URL de conexión a MongoDB
+// url de conexión a MongoDB
 const MONGO_URI = 'mongodb://localhost:27017/Api';
 
 const connectDB = async () => {

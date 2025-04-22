@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Project = require('../models/Project');
 
 const controllerProject = {
+    
     // Obtener todos los proyectos
     async getProjects(req, res) {
         try {
@@ -36,7 +37,7 @@ const controllerProject = {
         }
     },
 
-    // Agregar un proyecto
+    // Agregar proyecto
     async addProject(req, res) {
         try {
             const { name, members, description, icon, owner } = req.body;
@@ -70,7 +71,7 @@ const controllerProject = {
         }
     },
 
-    // Editar un proyecto
+    // Editar proyecto
     async editProject(req, res) {
         try {
             const { id } = req.params;
@@ -97,7 +98,7 @@ const controllerProject = {
         }
     },
 
-    // Eliminar un proyecto
+    // Eliminar proyecto
     async deleteProject(req, res) {
         try {
             const { id } = req.params;

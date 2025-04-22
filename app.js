@@ -22,20 +22,17 @@ app.use(cors());
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Permitir solicitudes desde el front
+    origin: 'http://localhost:5173', // permitir solicitudes desde el front
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization', 'auth']
 }));
 
 
-
-// 6748e83e58269cee2e8f803b
-
 // Rutas
-app.use('/api', auth); // Ruta para autenticación
+app.use('/api', auth); // Ruta para autenticacion
 app.use('/api/projects', projectRoutes); // Ruta para proyectos
-app.use('/api/epics', epic); // Rutas de épicas
+app.use('/api/epics', epic); // Rutas de epicas
 app.use('/api/stories', storyRoutes); // Ruta para historias
 app.use('/api', taskRoutes)
 app.use('/api/users', userRoutes);

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Project = require('../models/Project');
 const Story = require('../models/Story')
 
-// Obtener todas las épicas de un proyecto
+// Obtener todas las epicas de un proyecto
 const getEpicsByProject = async (req, res) => {
     try {
         const { id } = req.params;
@@ -19,7 +19,7 @@ const getEpicsByProject = async (req, res) => {
     }
 };
 
-// Obtener una épica por ID
+// Obtener una epica por ID
 const getEpic = async (req, res) => {
     try {
         const { id } = req.params;
@@ -40,7 +40,7 @@ const getEpic = async (req, res) => {
     }
 };
 
-// Agregar una nueva épica
+// Agregar una nueva epica
 async function addEpic(req, res) {
     try {
         const { project, name, description, icon } = req.body;
@@ -51,13 +51,13 @@ async function addEpic(req, res) {
             return res.status(404).json({ message: 'Proyecto no encontrado.' });
         }
 
-        // Crear la nueva épica
+        // Crear nueva epica
         const newEpic = new Epic({ project, name, description, icon });
 
-        // Guardar la épica
+        // Guardar epica
         const savedEpic = await newEpic.save();
 
-        // Enviar respuesta con la épica guardada
+        // Enviar respuesta con la epica 
         res.status(201).json(savedEpic);
     } catch (error) {
         console.error(error);
@@ -65,7 +65,7 @@ async function addEpic(req, res) {
     }
 }
 
-// Editar una épica
+// Editar una epica
 const editEpic = async (req, res) => {
     try {
         const { id } = req.params;
@@ -87,7 +87,7 @@ const editEpic = async (req, res) => {
     }
 };
 
-// Eliminar una épica
+// Eliminar una epica
 const deleteEpic = async (req, res) => {
     try {
         const { id } = req.params;
@@ -108,7 +108,7 @@ const deleteEpic = async (req, res) => {
     }
 };
 
-// Obtener historias de una épica
+// Obtener historias de una epica
 const getStoriesByEpic = async (req, res) => {
     try {
         const { id } = req.params;

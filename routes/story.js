@@ -7,7 +7,9 @@ const router = express.Router();
 router.post('/', checkToken, addStory); // Crear una nueva historia
 router.get('/', checkToken, getStories); // Obtener todas las historias
 router.get('/:id', checkToken, getStoryById); // Obtener una historia por ID
-router.put('/:id', checkToken, updateStory); // Actualizar una historia
-router.delete('/:id', checkToken, deleteStory); // Eliminar una historia
-router.get('/:id/tasks', checkToken, getTasksByStory); // Ruta para obtener tareas de una historia
+router.get('/:id/tasks', checkToken, getTasksByStory); // obtener tareas de una historia
+
+// router.put('/:id', checkToken, updateStory); // Actualizar una historia
+// router.delete('/:id', checkToken, deleteStory); // Eliminar una historia
+
 module.exports = router;

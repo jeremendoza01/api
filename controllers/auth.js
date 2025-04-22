@@ -8,7 +8,7 @@ const register = async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
-        // Validar que los campos no estén vacíos
+        // valida q los campos no esten vacios
         if (!username || !email || !password) {
             return res.status(400).json({ message: 'Todos los campos son requeridos' });
         }
@@ -19,21 +19,21 @@ const register = async (req, res) => {
             return res.status(400).json({ message: 'El nombre de usuario ya está registrado' });
         }
 
-        // Encriptar la contraseña
+        // Encriptar contraseña
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Crear un nuevo usuario
+        // Crear nuevo usuario
         const newUser = new User({
             username,
             email,
             password: hashedPassword
         });
 
-        // Guardar el nuevo usuario en la base de datos
+        // Guardar el nuevo usuario
         await newUser.save();
 
-        // Generar un token JWT
+        // genera un token JWT
         const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         // Responde con el token y los datos del usuario
@@ -55,6 +55,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const { username, password } = req.body;
 
+    // verifica q no esten vacios
     if (!username || !password) {
         return res.status(400).json({ message: 'Username y password son requeridos' });
     }
@@ -88,8 +89,6 @@ const login = async (req, res) => {
 };
 
 
-
-
 const checkToken = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
@@ -101,13 +100,13 @@ const checkToken = async (req, res, next) => {
         });
     }
 
-    const token = authHeader.split(' ')[1]; // Extraer el token (eliminando el prefijo 'Bearer ')
+    const token = authHeader.split(' ')[1]; // extrae el token (eliminando el prefijo 'Bearer ')
 
     try {
-        // Verificar el token
+        // verifica token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Buscar el usuario en la base de datos
+        // buscar el usuario
         const user = await User.findById(decoded.userId).select('-password');
 
         if (!user) {
@@ -118,9 +117,9 @@ const checkToken = async (req, res, next) => {
         }
         req.user = user;
 
-        next(); // Continuar con el siguiente middleware o controlador
+        next();
+
     } catch (error) {
-        // Manejar diferentes tipos de errores de token
         if (error.name === 'TokenExpiredError') {
             return res.status(401).json({
                 isValid: false,
@@ -134,7 +133,6 @@ const checkToken = async (req, res, next) => {
         });
     }
 };
-
 
 
 module.exports = { login, register, checkToken };
